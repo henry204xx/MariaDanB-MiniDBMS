@@ -1,33 +1,35 @@
 # MariaDanB-MiniDBMS
-Ini adalah mini DBMS yang dikembangkan sebagai proyek akhir mata kuliah IF3140 Sistem Basis Data di Institut Teknologi Bandung. Tersusun atas lima komponen utama basis data: query processing, storage management, concurrency control, failure recovery, dan query optimization. Sistem ini dirancang dengan arsitektur klien-server yang memungkinkan banyak klien untuk terhubung ke server basis data secara bersamaan.
 
-## Prasyarat
+This is a mini DBMS developed as a final project for the IF3140 Database Systems course at Institut Teknologi Bandung (ITB). It consists of five core database components: query processing, storage management, concurrency control, failure recovery, and query optimization. The system is designed with a client-server architecture that allows multiple clients to connect to the database server simultaneously.
+
+## Prerequisites
 - **Python 3.8+**
 
-## Cara Instal
-1. Clone repo ini
+## Installation
+
+1. Clone this repository:
    ```bash
    git clone https://github.com/MariaDanB-Sistem-Basis-Data/MariaDanB-MiniDBMS-Alt.git
    cd MariaDanB-MiniDBMS-Alt
    ```
 
-2. Inisialisasi basis data dengan data sampel:
+2. Initialize the database with sample data:
    ```bash
    python storage_manager/storagemanager_helper/init.py
    ```
 
-3. Jalankan server
+3. Start the server:
    ```bash
    python server.py
    ```
-   Server berjalan di `127.0.0.1:13523`
+   The server runs at `127.0.0.1:13523`
 
-4. Sambungkan klien
+4. Connect a client:
    ```bash
    python client.py --interactive
    ```
 
-## Beberapa Cara Menggunakan Klien
+## Client Usage Examples
 
 ```bash
 # Interactive mode (default)
@@ -36,14 +38,14 @@ python client.py --interactive
 # Connect to custom host/port
 python client.py --host 192.168.1.100 --port 8080 --interactive
 
-# Run single query
+# Run a single query
 python client.py --batch "SELECT * FROM Student;"
 
 # Show help
 python client.py --help
 ```
 
-### Kueri SQL
+### SQL Queries
 
 ```sql
 -- Create table
@@ -71,21 +73,21 @@ JOIN Attends A ON S.StudentID = A.StudentID
 JOIN Course C ON A.CourseID = C.CourseID;
 ```
 
-### Command Khusus
-Di mode interaktif klien, tersedia beberapa perintah khusus:
+### Special Commands
+In interactive client mode, the following special commands are available:
 
-| Command                  | Description                        |
-| ------------------------ | ---------------------------------- |
-| `\dt`                    | Tampilkan semua tabel              |
-| `\d <table>`             | Struktur tabel dan statistik       |
-| `\tx` or `\transactions` | Lihat transaksi aktif              |
-| `explain <query>`        | Lihat query plan dan analisis cost |
-| `\checkpoint`            | Trigger checkpoint di server       |
-| `\ping`                  | cek koneksi server                         |
-| `\help`                  | Show help                  |
-| `exit` or `quit`         | Disconnect & exit                |
+| Command                  | Description                              |
+| ------------------------ | ---------------------------------------- |
+| `\dt`                    | List all tables                          |
+| `\d <table>`             | Show table structure and statistics      |
+| `\tx` or `\transactions` | View active transactions                 |
+| `explain <query>`        | Display query plan and cost analysis     |
+| `\checkpoint`            | Trigger a checkpoint on the server       |
+| `\ping`                  | Check server connection status           |
+| `\help`                  | Show help information                    |
+| `exit` or `quit`         | Disconnect and exit the client           |
 
-**Contoh:**
+**Examples:**
 ```sql
 SQL> \dt
   Tables:
@@ -136,24 +138,22 @@ SQL> \tx
   Total: 1 active transaction(s)
 ```
 
-
-## Struktur
+## Project Structure
 
 ```
 MariaDanB-MiniDBMS/
-├── server.py                      # Server database
-├── client.py                      # Client database
-├── init_data.py                   # Database initialization
+├── server.py                      # Database server entry point
+├── client.py                      # Database client entry point
+├── init_data.py                   # Database initialization script
 ├── MiniDBMS.py                    # Core DBMS coordinator
-├── bootstrap.py                   # Dependency injection
-├── cli.py                         # Standalone CLI
-├── main.py                        # Entry point
-├── docker-compose.yml             # Docker orchestration
-├── query_processor/               # SQL query processing
-├── query_optimizer/               # Query optimization
-├── storage_manager/               # Data storage & indexing
-├── concurrency_control_manager/   # Transaction management
-├── failure_recovery_manager/      # Recovery & logging
-└── data/                          # Database files
+├── bootstrap.py                   # Dependency injection configuration
+├── cli.py                         # Standalone CLI interface
+├── main.py                        # Main application entry point
+├── docker-compose.yml             # Docker orchestration configuration
+├── query_processor/               # SQL parsing and query execution
+├── query_optimizer/               # Query optimization strategies
+├── storage_manager/               # Data storage, buffering, and indexing
+├── concurrency_control_manager/   # Transaction scheduling and locking
+├── failure_recovery_manager/      # Logging, checkpoints, and recovery
+└── data/                          # Persistent database files
 ```
-
